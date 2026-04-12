@@ -1,27 +1,17 @@
-- [中文](README.md)
-- [English](README_EN.md)
+# zmk-sofle-dongle
 
-# 更新列表
+## build
 
-- 2026/3/6
-  1. 全部模型都有修改，绘制了2各版本的手托
-  2. 修复了旋钮失效的问题
-  3. 修改了防抖时间，如果用的轴体性能号可以缩减防抖时间。如果用的轴体品质一半，可以拉长防抖时间。
-  
-- 2024/12/21
-  
-- 2024/10/24
-  1. 修改供电模式，功耗降低。
-  2. 修正RGB供电自动关闭的功能。
+build relative to this repo:
+```
+# init west
+$ west init -l config/
+$ west update
+$ west zephyr-export
 
-> 如果您的键盘于10月24日之前更新，请更新最新的固件。
-> 
----
-# 联系我
-
-如需3D打印的模型文件或者键盘有任何异常和故障，请联系380465425@qq.com
-
-# Sofle键位图
-
-<img src="keymap-drawer/eyelash_sofle.svg" >
-
+# build targets
+$ west build -p -s zmk/app -d ../zmk-builds/test_05/dongle -b nice_nano_v2 -S studio-rpc-usb-uart -- -DZMK_CONFIG=`pwd`/config -DSHIELD="eyelash_sofle_central_dongle dongle_display" -DZMK_EXTRA_MODULES=`pwd`/eyelash-sofle-module -DCONFIG_ZMK_STUDIO=y -DCONFIG_ZMK_STUDIO_LOCKING=n
+$ west build -p -s zmk/app -d ../zmk-builds/test_05/left -b nice_nano_v2 -- -DZMK_CONFIG=`pwd`/config -DSHIELD="eyelash_sofle_peripheral_left nice_view" -DZMK_EXTRA_MODULES=`pwd`/eyelash-sofle-module
+$ west build -p -s zmk/app -d ../zmk-builds/test_05/right -b nice_nano_v2 -- -DZMK_CONFIG=`pwd`/config -DSHIELD="eyelash_sofle_peripheral_right nice_view" -DZMK_EXTRA_MODULES=`pwd`/eyelash-sofle-module
+$ west build -p -s zmk/app -d ../zmk-builds/test_05/settings_reset -b nice_nano_v2 -- -DZMK_CONFIG=`pwd`/config -DSHIELD=settings_reset -DZMK_EXTRA_MODULES=`pwd`/eyelash-sofle-module
+```
